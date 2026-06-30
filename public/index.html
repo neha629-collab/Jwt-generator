@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FF JWT API</title>
+  <style>
+    body{font-family:Arial,sans-serif;max-width:900px;margin:40px auto;padding:20px;background:#0b1220;color:#fff}
+    .box{background:#121a2b;padding:20px;border-radius:12px;margin-bottom:20px}
+    input,button{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #334155}
+    button{background:#60a5fa;border:0;color:#08101d;font-weight:700;cursor:pointer}
+    pre{background:#09101b;padding:16px;border-radius:10px;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>FF JWT API</h1>
+    <p>Endpoints:</p>
+    <ul>
+      <li><code>/api/public/token?guest_uid=&lt;uid&gt;&amp;guest_password=&lt;pw&gt;</code></li>
+      <li><code>/api/public/token?access_token=&lt;token&gt;&amp;open_id=&lt;open_id&gt;</code></li>
+      <li><code>/api/public/token?eat_token=&lt;eat&gt;</code></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>Guest UID + Password</h3>
+    <input id="uid" placeholder="Guest UID">
+    <input id="pw" placeholder="Guest Password">
+    <button onclick="run()">Generate JWT</button>
+  </div>
+
+  <div class="box">
+    <pre id="out">Ready.</pre>
+  </div>
+
+  <script>
+    async function run(){
+      const uid = encodeURIComponent(document.getElementById('uid').value.trim());
+      const pw = encodeURIComponent(document.getElementById('pw').value.trim());
+      const r = await fetch(`/api/public/token?guest_uid=${uid}&guest_password=${pw}`);
+      const t = await r.text();
+      try { document.getElementById('out').textContent = JSON.stringify(JSON.parse(t), null, 2); }
+      catch { document.getElementById('out').textContent = t; }
+    }
+  </script>
+</body>
+</html>
