@@ -1,3 +1,18 @@
 {
-  "version": 2
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/public/:path*",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/token",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/access-jwt",
+      "destination": "/api/index.py"
+    }
+  ]
 }
